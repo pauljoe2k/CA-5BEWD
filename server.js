@@ -4,14 +4,12 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 require('dotenv').config()
-const cors = require('cors')
 
 SECRET_KEY = "letsjustsaythisisasecret"
 const app = express();
 const PORT = process.env.PORT;
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
 
 mongoose.connect(process.env.MONGO_DB)
 .then(()=>console.log('CONNECTED SUCCESSFULLY'))
@@ -53,7 +51,7 @@ app.post('/register',async (req,res) => {
         
         res.json({message:"User registered successfully"});
 
-    } catch (error) {
+    } catch (error) {    
         return res.status(500).send({message:"Server Error"});
     }
 });
