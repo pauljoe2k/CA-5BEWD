@@ -29,22 +29,21 @@ const UserSchema = new mongoose.Schema({
 })
 const User = mongoose.model("User",UserSchema);
 
-const verifyToken = (req,res,next)=>{
-    try {
-        const token = req.cookies.process.env.JWT_SECRET_TOKEN
-        if(!token){
-            return res.status(400).send({message:"Invalid"});
-        }
-        req.user = jwt.verify(token,JWT_SECRET_TOKEN);
-        next();
-    } catch (error) {
-        return res.status(401).send({message:"invalid token"})
-    }
-}
+// const verifyToken = (req,res,next)=>{
+//     try {
+//         const token = req.cookies.process.env.JWT_SECRET_TOKEN
+//         if(!token){
+//             return res.status(400).send({message:"Invalid"});
+//         }
+//         req.user = jwt.verify(token,JWT_SECRET_TOKEN);
+//         next();
+//     } catch (error) {
+//         return res.status(401).send({message:"invalid token"})
+//     }
+// }
 
 app.post('/register',async (req,res) => {
     try {
-        console.log(err);
         const{username,password} = req.body;
         if(!username||!password){
             return res.status(400).send({message:"Enter the credentials"});
@@ -59,7 +58,7 @@ app.post('/register',async (req,res) => {
     }
 });
 
-app.post('login',async (req,res) => {
+app.post('/login',async (req,res) => {
     try {
         const{username,password} = req.body;
         const user = await User.findOne({username:username});
